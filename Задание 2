@@ -1,0 +1,22 @@
+f = open('books.txt', 'r', encoding='utf-8')  # Открываем файл с данными о книгах
+columns = f.readline()[:-1].split('%')
+# Считываем файл и добавляем построчно в список data, где каждый подсписок - строка таблицы
+data = []  # Список, в который построчно запишется файл
+for st in f:
+    tpm = st[:-1].split('%')
+    data.append(tpm)
+# Сортируем подсписки внутри data по убыванию, чтобы книги с высоким рейтингом были сверху
+for i in range(len(data) - 1):
+    max_ind = i
+    max_val = data[i][5]
+    for j in range(i + 1, len(data)):
+        if data[j][5] > max_val:
+            max_val = data[j][5]
+            max_ind = j
+    if i != max_ind:
+        data.insert(i, data.pop(max_ind))
+
+# Выводим название, авторов и рейтинг первых 3 книг
+print(f'{data[0][4]} - {data[0][2]} - {data[0][5]}')
+print(f'{data[1][4]} - {data[1][2]} - {data[1][5]}')
+print(f'{data[2][4]} - {data[2][2]} - {data[2][5]}')
