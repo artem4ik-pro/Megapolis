@@ -1,0 +1,18 @@
+f = open('books.txt', 'r', encoding='utf-8')  # Открываем файл с данными о книгах
+columns = f.readline()[:-1].split('%')
+# Считываем файл и добавляем построчно в список data, где каждый подсписок - строка таблицы
+data = []  # Список, в который построчно запишется файл
+for st in f:
+    tpm = st[:-1].split('%')
+    data.append(tpm)
+# Принимаем первый запрос у пользователя
+request = input()
+# Пишем алгоритм поиска
+while request != 'автор':  # Цикл, который запрашивает данные до тех пор, пока пользователь не введет слово автор
+    found = []
+    for i in range(len(data)):
+        if request.lower() in data[i][2].lower():
+            found.append(f'{data[i][4]} - {data[i][1]} - {data[i][0]} - {data[i][5]}')
+    if len(found) != 0: print(*found, sep='\n')  # Выводим результат при успешном поиске
+    else: print('Данного автора в этой библиотеке нет')  # Выводим ошибку при отсутствии данных
+    request = input()
